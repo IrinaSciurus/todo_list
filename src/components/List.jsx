@@ -4,6 +4,7 @@ import {DataContext} from "./DataProvider";
 
 function List(){
     const [todos, setTodos] = useContext(DataContext);
+
 const switchComplete = (id) => {
 // alert(id)
     const newTodos = [...todos];
@@ -16,6 +17,17 @@ const switchComplete = (id) => {
     })
 }
 
+    const handleOnEditTodos = (editValue,id) => {
+        const newTodos = [...todos];
+        // eslint-disable-next-line array-callback-return
+        newTodos.filter((todo,index) => {
+            if(index===id) {
+                todo.name = editValue;
+            }
+            setTodos(newTodos);
+        })
+    }
+
     return(
         <ul>
             {todos.map((todo, index)=>
@@ -24,6 +36,7 @@ const switchComplete = (id) => {
                key={index}
                id={index}
                checkComplete={switchComplete}
+               handleOnEditTodos={handleOnEditTodos}
            />
             )}
         </ul>
